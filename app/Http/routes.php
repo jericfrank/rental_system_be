@@ -11,6 +11,11 @@
 |'middleware' => ['jwt.auth', 'rbac']
 */
 
+Route::get('/', function()
+{
+    return 'backend api.......';
+});
+
 Route::group([ 'prefix' => 'api', ], function () {
 	Route::post('/auth/register', 'AuthController@signup');
 	Route::post('/auth/login', 'AuthController@signin');
