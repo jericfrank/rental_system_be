@@ -32,6 +32,6 @@ class AuthController extends Controller
        	return response()->json([ 'error' => 'Invalid Credentials' ], 400 );
    		}
 
-   		return response()->json( [ 'token' => $data ] );
+   		return response()->json( $data );
     }
 }

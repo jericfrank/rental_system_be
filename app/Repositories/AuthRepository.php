@@ -2,8 +2,8 @@
 
 namespace App\Repositories;
 
-use App\Models\User;
-
+use App\User;
+use Auth;
 use JWTAuth;
 
 class AuthRepository
@@ -16,9 +16,9 @@ class AuthRepository
     public function signup( $data )
     {
         $user = $this->getModel();
-        $user->name = $data->name;
-        $user->email = $data->email;
-        $user->password = bcrypt( $data->password );
+        $user->name = $data->UserName;
+        $user->email = $data->Email;
+        $user->password = bcrypt( $data->Password );
         $user->save();
 
         $token = JWTAuth::fromUser( $data );
@@ -27,9 +27,19 @@ class AuthRepository
     }
 
     public function signin( $data ) {
-        $credentials = $data->only( 'email', 'password' );
+        $credentials = [
+            'email'    => $data->get('UserName'),
+            'password' => $data->get('Password')
+        ];
 
         $token = JWTAuth::attempt( $credentials );
+
+        if ( $token ) {
+            return [
+                'token' => $token,
+                'user' => Auth::User()
+            ];
+        }
 
         return $token;
     }
