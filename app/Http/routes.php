@@ -19,13 +19,15 @@ Route::get('/', function()
 Route::group([ 'prefix' => 'api', ], function () {
 	Route::post('/auth/register', 'AuthController@signup');
 	Route::post('/auth/login', 'AuthController@signin');
-	
+	Route::post('/auth/logout', 'AuthController@signout');
+
 	Route::get('/users', 'UserController@index');
 	
 	Route::group([ 'middleware' => [ 'jwt.auth' ] ], function () {
 		// Route::get('/users', 'UserController@index');
-
 		Route::post('/rentals', 'RentalController@create');
 		Route::get('/rentals', 'RentalController@index');
+
+		Route::post('/uploader', 'UploaderController@upload');
 	});
 });

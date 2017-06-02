@@ -34,4 +34,11 @@ class AuthController extends Controller
 
    		return response()->json( $data );
     }
+
+    public function signout(Request $request)
+    {
+      $data = $this->authRepository->signout( $request );
+
+      return response()->json( $data );
+    }
 }

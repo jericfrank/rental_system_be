@@ -43,4 +43,8 @@ class AuthRepository
 
         return $token;
     }
+
+    public function signout( $data ) {
+        return JWTAuth::invalidate($data->get('token'));
+    }
 }
