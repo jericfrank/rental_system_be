@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\File;
 
 use App\Videos;
 
-use Storage, JWTAuth, Auth;
+use Storage, JWTAuth, Auth, Cloudder;
 
 class VideoRepository
 {
@@ -27,19 +27,19 @@ class VideoRepository
     {
         $file = $request->file('file');
 
+        Cloudder::uploadVideo($file->getRealPath(), null);
+
+        $Cloudder = Cloudder::getResult();
+
         $video            = $this->getModel();
         $video->name      = $file->getClientOriginalName();
         $video->extention = $file->getClientOriginalExtension();
         $video->real_path = $file->getRealPath();
+        $video->file_path = $Cloudder['secure_url'];
         $video->size      = $file->getSize();
         $video->mime_type = $file->getMimeType();
         $video->user_id   = Auth::user()->id;
         $video->save();
-
-        $file_path     = 'public/videos/'.Auth::user()->id.'/'.$video->id;
-        $file_contents = File::get( $file );
-
-        Storage::disk('local')->put( $file_path, $file_contents );
 
         return $video;
     }

@@ -24,7 +24,7 @@ class VideoRequest extends Request
     public function rules()
     {
         return [
-            'file' => 'mimetypes:video/avi,video/mpeg,video/mp4,video/quicktime'
+            'file' => 'mimetypes:video/avi,video/mpeg,video/mp4,video/quicktime|max:10240'
         ];
     }
 }

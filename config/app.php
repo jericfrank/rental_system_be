@@ -158,6 +158,8 @@ return [
 
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
+
+        JD\Cloudder\CloudderServiceProvider::class,
     ],
 
     /*
@@ -205,6 +207,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+
+        'Cloudder' => JD\Cloudder\Facades\Cloudder::class,
     ],
 
 ];
