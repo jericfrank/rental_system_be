@@ -24,9 +24,10 @@ Route::group([ 'prefix' => 'api', ], function () {
 	Route::get('/users', 'UserController@index');
 	
 	Route::group([ 'middleware' => [ 'jwt.auth' ] ], function () {
-		// Route::get('/users', 'UserController@index');
 		Route::post('/rentals', 'RentalController@create');
 		Route::get('/rentals', 'RentalController@index');
+
+		Route::get('/videos', 'VideoController@index');
 
 		Route::post('/uploader', 'UploaderController@upload');
 	});
